@@ -1,0 +1,92 @@
+<head>
+	<title>filters</title>
+</head>
+
+<body>
+	<div class="container">
+	{{> categories}}
+	{{> records}}
+	</div>
+</body>
+
+<template name="categories">
+	<div class="row">
+		<div class="span12">
+		{{#each category}}
+			<button class="btn category">{{name}}</button>
+		{{/each}}
+		</div>
+	</div>
+</template>
+
+<template name="records">
+	<div class="row">
+		<div class="span10">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>_id 
+							<i class="icon-circle-arrow-up idUp"></i>
+							<i class="icon-circle-arrow-down idDn"></i>
+						</th>
+						<th>name<br />
+							<i class="icon-circle-arrow-up nameUp"></i>
+							<i class="icon-circle-arrow-down nameDn"></i>
+						</th>
+						<th>product<br />
+							<i class="icon-circle-arrow-up productUp"></i>
+							<i class="icon-circle-arrow-down productDn"></i>
+						</th>
+						<th>color<br />
+							<i class="icon-circle-arrow-up colorUp"></i>
+							<i class="icon-circle-arrow-down colorDn"></i>
+						</th>
+						<th>category<br />
+							<i class="icon-circle-arrow-up categoryUp"></i>
+							<i class="icon-circle-arrow-down categoryDn"></i>
+						</th>
+						<th>date<br />
+							<i class="icon-circle-arrow-up dateUp"></i>
+							<i class="icon-circle-arrow-down dateDn"></i>
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+				{{#each record}}
+					<tr>
+						<td>{{_id}}</td>
+						<td>{{name}}</td>
+						<td>{{product}}</td>
+						<td>{{color}}</td>
+						<td>{{category}}</td>
+						<td>{{formatDate date}}</td>
+					</tr>
+				{{/each}}
+				</tbody>
+			</table>
+		</div>
+		{{> products}}
+		{{> colors}}
+	</div>
+</template>
+
+<template name="products">
+	<div class="span2">
+		<p><b><u>products</u></b></p>
+		{{#each product}}
+			<input type="checkbox" checked="checked" class="product" name="product-color" value="{{this}}" /> {{this}} <br />
+		{{/each}}
+		<br /><br />
+	</div>
+</template>
+
+<template name="colors">
+	<div class="span2">
+		<p><b><u>colors</u></b></p>
+		{{#each color}}
+			<input type="checkbox" checked="checked" class="color" name="filter-color" value="{{this}}" /> {{this}} <br />
+		{{/each}}
+		<br /><br />
+	</div>
+</template>
+

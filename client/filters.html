@@ -73,8 +73,9 @@
 <template name="products">
 	<div class="span2">
 		<p><b><u>products</u></b></p>
+		<input type="checkbox" class="toggle-product" /> Clear All <br />
 		{{#each product}}
-			<input type="checkbox" checked="checked" class="product" name="product-color" value="{{this}}" /> {{this}} <br />
+			<input type="checkbox" checked="checked" class="product" name="filter-product" value="{{this}}" /> {{this}} <br />
 		{{/each}}
 		<br /><br />
 	</div>

@@ -1,13 +1,11 @@
 
-var xxx = [];
-xxx.push('brown');
-xxx.push('green');
-xxx.push('yellow');
-// console.log(xxx);
-Session.setDefault('query-category', 'Cat1')
-Session.setDefault('query-color', xxx);
+Session.setDefault('query-category', 'Cat1');
 Session.setDefault('sort', {name: 1});
 
+var arrColors = ['green', 'brown', 'yellow', 'red'];
+var arrProducts = ['prodA', 'prodB', 'prodC', 'prodD'];
+Session.setDefault('query-color', arrColors);
+Session.setDefault('query-product', arrProducts);
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /* categories
@@ -34,10 +32,16 @@ Template.categories.events({
 // Helpers 
 Template.records.helpers({
 	record: function () {
-		var strColor = Session.get('query-color');
-		// var strColor = ['green','brown'];
-		console.log(strColor);
-		var recordsColl = Records.find( { $and: [ { category: Session.get('query-category') }, { color: { $in: strColor } } ] }, { sort: Session.get('sort') } ).fetch();
+		var arrProducts = Session.get('query-product');
+		var arrColors = Session.get('query-color');
+		var recordsColl = Records.find( 
+			{ $and: [ 
+				{ category: Session.get('query-category') },
+				{ product: { $in: arrProducts } }, 
+				{ color: { $in: arrColors } } ] }, 
+			{ sort: Session.get('sort') } )
+		.fetch();
+	
 		Session.set('recordsColl', recordsColl);
 		return recordsColl;
 	}
@@ -83,7 +87,6 @@ Template.records.events({
 	}
 });
 
-
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /* filters
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
@@ -105,8 +108,29 @@ Template.colors.helpers({
 	}
 });
 
-
 // Events
+Template.products.events({
+	'change .product': function (event, template) {
+		var selected = template.findAll("input[type=checkbox]:checked");
+		var array = [];
+		_.each(selected, function (item) {
+			array.push(item.defaultValue);
+		});
+		Session.set('query-product', array);
+	},
+	'click .toggle-product': function (event, template) {
+		var checkboxes = document.getElementsByName('filter-product');
+		for(var i=0, n=checkboxes.length; i<n; i++) {
+			if (checkboxes[i].checked) {
+				checkboxes[i].checked = false;				
+			} else {
+				checkboxes[i].checked = true;
+			}
+
+		}
+	}
+});
+
 Template.colors.events({
 	'change .color': function (event, template) {
 		var selected = template.findAll("input[type=checkbox]:checked");

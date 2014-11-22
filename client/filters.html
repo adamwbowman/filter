@@ -1,93 +1,206 @@
 <head>
-	<title>filters</title>
+	<title>CSG Reporting</title>
 </head>
 
 <body>
-	<div class="container">
-	{{> categories}}
-	{{> records}}
+	<div class="navbar navbar-inverse navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="brand" href="#">CSG Reporting</a>
+				<div class="nav-collapse collapse">
+					<ul class="nav">
+						<li class="active"><a href="#">Home</a></li>
+						<li><a href="#">Release 14.2</a></li>
+						<li><a href="#">Release 14.3</a></li>
+						<li><a href="#">Release 14.4</a></li>
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Current Release <b class="caret"></b></a>
+							<ul class="dropdown-menu">
+								<li><a href="#">For CSRs</a></li>
+								<li><a href="#">For Admins</a></li>
+								<li><a href="#">For Interface</a></li>
+								<li class="divider"></li>
+								<li class="nav-header">Nav header</li>
+								<li><a href="#">Separated link</a></li>
+								<li><a href="#">One more separated link</a></li>
+							</ul>
+						</li>
+					</ul>
+					<form class="navbar-form pull-right">
+					<div class="input-append date">
+						<input type="text" id="startDate" placeholder="Start Date"><span class="add-on"><i class="icon-th"></i></span>
+					</div>
+					<div class="input-append date">
+						<input type="text" id="endDate" placeholder="End Date"><span class="add-on"><i class="icon-th"></i></span>
+					</div>
+				</form>
+				</div><!--/.nav-collapse -->
+			</div>
+		</div>
+	</div>
+
+	<div class="container-fluid">
+		<div class="row-fluid">
+			<div class="span2">
+				<!-- <div class="well sidebar-nav" data-spy="affix" data-offset-top="200"> -->
+				<div class="well sidebar-nav">
+<!-- 					<div class="input-append date">
+						<input type="text" id="startDate" placeholder="Start Date"><span class="add-on"><i class="icon-th"></i></span>
+					</div><br />
+					<div class="input-append date">
+						<input type="text" id="endDate" placeholder="End Date"><span class="add-on"><i class="icon-th"></i></span>
+					</div>
+ -->					<div class="nav-match"><i class="icon-list"></i> &nbsp;{{count}}</div>
+					<ul class="nav nav-list-main">
+						{{> clients}}
+						{{> required}}
+						{{> internal}}
+						{{> requestings}}
+						{{> impactings}}
+					</ul>
+				</div>
+			</div>
+			<div class="span10">
+				<div class="row-fluid">
+					<div class="span12">
+						{{> records}}	
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<hr>
+
+		<footer>
+			<p>&copy; CSG International 2015</p>
+		</footer>
+		{{> modals}}
 	</div>
 </body>
 
-<template name="categories">
-	<div class="row">
-		<div class="span12">
-		{{#each category}}
-			<button class="btn category">{{name}}</button>
-		{{/each}}
-		</div>
-	</div>
-</template>
-
 <template name="records">
-	<div class="row">
-		<div class="span10">
-			<table class="table table-hover">
-				<thead>
-					<tr>
-						<th>_id 
-							<i class="icon-circle-arrow-up idUp"></i>
-							<i class="icon-circle-arrow-down idDn"></i>
-						</th>
-						<th>name<br />
-							<i class="icon-circle-arrow-up nameUp"></i>
-							<i class="icon-circle-arrow-down nameDn"></i>
-						</th>
-						<th>product<br />
-							<i class="icon-circle-arrow-up productUp"></i>
-							<i class="icon-circle-arrow-down productDn"></i>
-						</th>
-						<th>color<br />
-							<i class="icon-circle-arrow-up colorUp"></i>
-							<i class="icon-circle-arrow-down colorDn"></i>
-						</th>
-						<th>category<br />
-							<i class="icon-circle-arrow-up categoryUp"></i>
-							<i class="icon-circle-arrow-down categoryDn"></i>
-						</th>
-						<th>date<br />
-							<i class="icon-circle-arrow-up dateUp"></i>
-							<i class="icon-circle-arrow-down dateDn"></i>
-						</th>
-					</tr>
-				</thead>
-				<tbody>
-				{{#each record}}
-					<tr>
-						<td>{{_id}}</td>
-						<td>{{name}}</td>
-						<td>{{product}}</td>
-						<td>{{color}}</td>
-						<td>{{category}}</td>
-						<td>{{formatDate date}}</td>
-					</tr>
-				{{/each}}
-				</tbody>
-			</table>
+	<div class="span12">
+		<table class="table table-bordered table-condensed table-hover">
+			<thead>
+				<tr>
+					<!-- <th>_id 
+						<i class="icon-circle-arrow-up idUp"></i>
+						<i class="icon-circle-arrow-down idDn"></i>
+					</th> -->
+					<th class="table-header"> ID: Name
+						<div class="btn-group pull-right">
+							<button class="btn btn-mini"><i class="icon-chevron-up nameUp"></i></button>
+							<button class="btn btn-mini"><i class="icon-chevron-down nameDn"></i></button>
+						</div>
+					</th>
+					<th class="table-header"> Client Availability
+						<div class="btn-group pull-right">
+							<button class="btn btn-mini"><i class="icon-chevron-up clientUp"></i></button>
+							<button class="btn btn-mini"><i class="icon-chevron-down clientDn"></i></button>
+						</div>
+					</th>
+					<th class="table-header"> Requesting Product
+						<div class="btn-group pull-right">
+							<button class="btn btn-mini"><i class="icon-chevron-up requestingUp"></i></button>
+							<button class="btn btn-mini"><i class="icon-chevron-down requestingDn"></i></button>
+						</div>
+					</th>
+					<th class="table-header"> Impacting Products
+						<div class="btn-group pull-right">
+							<button class="btn btn-mini"><i class="icon-chevron-up impactingUp"></i></button>
+							<button class="btn btn-mini"><i class="icon-chevron-down impactingDn"></i></button>
+						</div>
+					</th>
+					<th class="table-header"> Release Date </th>
+					<th class="table-header"> Required </th>
+					<th class="table-header"> Internal </th>
+					<th class="table-header"> Like </th>
+					<th class="table-header"> Follow </th>
+				</tr>
+			</thead>
+			<tbody>
+			{{#each record}}
+				<tr class="record">
+					<!-- <td>{{_id}}</td> -->
+					<td>{{_id}}: {{name}}</td>
+					<td>{{client}}</td>
+					<td>{{requesting}}</td>
+					<td>{{impacting}}</td>
+					<td>{{formatDate date}}</td>
+					<td style="text-align: center"><input type="checkbox" id="required" checked="{{required}}" onClick="return false"></td>
+					<td style="text-align: center"><input type="checkbox" id="internal" checked="{{internal}}" onClick="return false"></td>
+					<td style="text-align: center"><input type="checkbox" id="like" checked="{{like}}"></td>
+					<td style="text-align: center"><input type="checkbox" id="follow" checked="{{follow}}"></td>
+				</tr>
+<!-- <tr class="record"><td>{{name}}</td><td>{{product}}</td><td>{{color}}</td><td>{{category}}</td><td> -->
+			{{/each}}
+			</tbody>
+		</table>
+	</div>
+</template>
+
+<template name="clients">
+	<li class="checkbox cb-header"><input type="checkbox" class="toggle-client checkbox" name="toggle-client" /> Client Availability</li>
+	{{#each client}}
+		<li class="checkbox cb-item"><input type="checkbox" checked="checked" class="client" name="filter-client" value="{{this}}" /> {{this}} </li>
+	{{/each}}
+</template>
+
+<template name="required">
+	<li class="checkbox cb-header"><input type="checkbox" class="toggle-required checkbox" name="toggle-required" /> Requirements</li>
+	{{#if required}}
+		<li class="checkbox cb-item"><input type="checkbox" checked="checked" class="required" name="filter-required" value="false" /> Optional </li>
+		<li class="checkbox cb-item"><input type="checkbox" checked="checked" class="required" name="filter-required" value="true" /> Required </li>
+	{{/if}}
+</template>
+
+<template name="internal">
+	<li class="checkbox cb-header"><input type="checkbox" class="toggle-internal checkbox" name="toggle-internal" /> Impact</li>
+	{{#if internal}}
+		<li class="checkbox cb-item"><input type="checkbox" checked="checked" class="internal" name="filter-internal" value="false" /> External </li>
+		<li class="checkbox cb-item"><input type="checkbox" checked="checked" class="internal" name="filter-internal" value="true" /> Internal </li>
+	{{/if}}
+</template>
+
+<template name="requestings">
+	<li class="checkbox cb-header"><input type="checkbox" class="toggle-requesting checkbox" name="toggle-requesting" /> Requesting Product</li>
+	{{#each requesting}}
+		<li class="checkbox cb-item"><input type="checkbox" checked="checked" class="requesting" name="filter-requesting" value="{{this}}" /> {{this}} </li>
+	{{/each}}
+</template>
+
+<template name="impactings">
+	<li class="checkbox cb-header"><input type="checkbox" class="toggle-impacting checkbox" name="toggle-impacting" /> Impacting Product</li>
+	{{#each impacting}}
+		<li class="checkbox cb-item"><input type="checkbox" checked="checked" class="impacting" name="filter-impacting" value="{{this}}" /> {{this}} </li>
+	{{/each}}
+</template>
+
+<template name="modals">
+	{{#if showRecordDetail}}
+		{{> show_detail}}
+	{{/if}}
+</template>
+
+<template name="show_detail">
+	<div class="mask"> </div>
+	<div class="modal">
+		{{#each detail}}
+		<div class="modal-header">
+			<button type="button" class="close cancel hide-modal">&times;</button>
+			<h3>{{_id}}: {{name}}</h3>
 		</div>
-		{{> products}}
-		{{> colors}}
-	</div>
-</template>
-
-<template name="products">
-	<div class="span2">
-		<p><b><u>products</u></b></p>
-		<input type="checkbox" class="toggle-product" /> Clear All <br />
-		{{#each product}}
-			<input type="checkbox" checked="checked" class="product" name="filter-product" value="{{this}}" /> {{this}} <br />
+		<div class="modal-body">
+			<label>Client Availability: {{client}}</label>
+		</div>
 		{{/each}}
-		<br /><br />
+		<div class="modal-footer">
+			<a class="btn cancel hide-modal">Close</a>
+		</div>
 	</div>
 </template>
-
-<template name="colors">
-	<div class="span2">
-		<p><b><u>colors</u></b></p>
-		{{#each color}}
-			<input type="checkbox" checked="checked" class="color" name="filter-color" value="{{this}}" /> {{this}} <br />
-		{{/each}}
-		<br /><br />
-	</div>
-</template>
-

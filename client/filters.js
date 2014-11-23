@@ -6,9 +6,9 @@ Session.setDefault('showRecordDetail', false);
 Session.setDefault('currentRecord', null);
 
 
-var arrClient = ['All', 'CSG Biller'];
-var arrRequesting = ['CSG Event Notification', 'Event Notification'];
-var arrImpacting = ['Centric Interfaces', 'SmartLink BOS'];
+var arrClient = ['All', 'CSG Biller', 'Direct Solutions'];
+var arrRequesting = ['ACP Adapters', 'ACP Commercial', 'ACPx', 'ACPx Infrastructure', 'ACPx Order', 'ACSR', 'CCI', 'CCS', 'CCS Infrastructure', 'CCS-DISH', 'CCSNet', 'Centric Interfaces', 'CI - Channel Interfaces', 'CIT', 'Conversions', 'CSG Connect/DirectNet', 'CSG Event Notification Interf', 'CSG Gateway', 'Cust Interaction Mgmnt (CIM)', 'Customer Intelligence', 'Customer Management', 'Customer Profile', 'Data Dist Services (DDS)', 'Direct Sales Express(DSX)', 'Enterprise Architecture', 'Enterprise Interfaces', 'Enterprise Process Framework (EPF)', 'Event Processing System (EPS)', 'Financial Services', 'IM  Emgncy-Gen Notification', 'Intelligent Business Rpt (IBR)', 'Intentional Architecture', 'Interactive Messaging', 'Marketing Services', 'Mass Change Platform', 'Mass Change Platform (MCP)', 'Next Generation Desktop (NGD)', 'Online Systems Architecture', 'OPC', 'Open System Interfaces', 'Open Systems Infrastructue ', 'OS Facility/Product Tools', 'Output - NJ', 'Output - OMA', 'Payment Gateway', 'Payment Manager', 'PC Editions ', 'PDB Services', 'Postal Solutions', 'Precision eCare', 'Print Solutions', 'Product Configurator', 'Smartlink', 'Smartlink BOS', 'Vantage', 'Vantage Plus', 'View/Archival Services', 'Voice Services', 'Workforce Management'];
+var arrImpacting = ['ACP Adapters', 'ACP Commercial', 'ACPx', 'ACPx Infrastructure', 'ACPx Order', 'ACSR', 'CCI', 'CCS', 'CCS Infrastructure', 'CCS-DISH', 'CCSNet', 'Centric Interfaces', 'CI - Channel Interfaces', 'CIT', 'Conversions', 'CSG Connect/DirectNet', 'CSG Event Notification Interf', 'CSG Gateway', 'Cust Interaction Mgmnt (CIM)', 'Customer Intelligence', 'Customer Management', 'Customer Profile', 'Data Dist Services (DDS)', 'Direct Sales Express(DSX)', 'Enterprise Architecture', 'Enterprise Interfaces', 'Enterprise Process Framework (EPF)', 'Event Processing System (EPS)', 'Financial Services', 'IM  Emgncy-Gen Notification', 'Intelligent Business Rpt (IBR)', 'Intentional Architecture', 'Interactive Messaging', 'Marketing Services', 'Mass Change Platform', 'Mass Change Platform (MCP)', 'Next Generation Desktop (NGD)', 'Online Systems Architecture', 'OPC', 'Open System Interfaces', 'Open Systems Infrastructue ', 'OS Facility/Product Tools', 'Output - NJ', 'Output - OMA', 'Payment Gateway', 'Payment Manager', 'PC Editions ', 'PDB Services', 'Postal Solutions', 'Precision eCare', 'Print Solutions', 'Product Configurator', 'Smartlink', 'Smartlink BOS', 'Vantage', 'Vantage Plus', 'View/Archival Services', 'Voice Services', 'Workforce Management'];
 var arrRequired = [true, false];
 var arrInternal = [true, false];
 Session.setDefault('query-client', arrClient);
@@ -207,6 +207,7 @@ Template.impactings.helpers({
 	impacting: function () {
 		var recordsColl = Records.find({ date: {$gte: dateToUnix(Session.get('query-startDate')), $lte: dateToUnix(Session.get('query-endDate'))}}).fetch();
 		var impactingColl = _.chain(recordsColl).pluck('impacting').flatten().uniq().sort().value();
+		// console.log(_.chain(recordsColl).pluck('impacting').flatten().uniq().sort().value());
 		return impactingColl;
 	}
 });
@@ -355,6 +356,6 @@ var createList = function (list) {
 			array.push(item.defaultValue);			
 		}
 	});	
-	console.log(array);
+	// console.log(array);
 	return array;
 }

@@ -1,5 +1,5 @@
 <head>
-	<title>CSG Reporting</title>
+	<title>CSG Releases</title>
 </head>
 
 <body>
@@ -11,7 +11,7 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="brand" href="#">CSG Reporting</a>
+				<a class="brand" href="#">CSG Releases</a>
 				<div class="nav-collapse collapse">
 					<ul class="nav">
 						<li class="active"><a href="#">Home</a></li>
@@ -21,13 +21,14 @@
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Current Release <b class="caret"></b></a>
 							<ul class="dropdown-menu">
+								<li class="nav-header">Job Role</li>
 								<li><a href="#">For CSRs</a></li>
 								<li><a href="#">For Admins</a></li>
 								<li><a href="#">For Interface</a></li>
 								<li class="divider"></li>
-								<li class="nav-header">Nav header</li>
-								<li><a href="#">Separated link</a></li>
-								<li><a href="#">One more separated link</a></li>
+								<li class="nav-header">Filter</li>
+								<li><a href="#">Liked</a></li>
+								<li><a href="#">Followed</a></li>
 							</ul>
 						</li>
 					</ul>
@@ -104,34 +105,34 @@
 							<button class="btn btn-mini"><i class="icon-chevron-down clientDn"></i></button>
 						</div>
 					</th>
-					<th class="table-header"> Requesting Product
+					<th class="table-header"> Core Product
 						<div class="btn-group pull-right">
 							<button class="btn btn-mini"><i class="icon-chevron-up requestingUp"></i></button>
 							<button class="btn btn-mini"><i class="icon-chevron-down requestingDn"></i></button>
 						</div>
 					</th>
-					<th class="table-header"> Impacting Products
+					<th class="table-header"> Impacted Products
 						<div class="btn-group pull-right">
 							<button class="btn btn-mini"><i class="icon-chevron-up impactingUp"></i></button>
 							<button class="btn btn-mini"><i class="icon-chevron-down impactingDn"></i></button>
 						</div>
 					</th>
 					<th class="table-header"> Release Date </th>
-					<th class="table-header"> Required </th>
-					<th class="table-header"> Internal </th>
-					<th class="table-header"> Like </th>
+					<th class="table-header" align="center"> Required </th>
+					<th class="table-header" align="center"> Internal </th>
+					<th class="table-header" align="center"> Like </th>
 					<th class="table-header"> Follow </th>
 				</tr>
 			</thead>
 			<tbody>
 			{{#each record}}
-				<tr class="record">
+				<tr>
 					<!-- <td>{{_id}}</td> -->
-					<td>{{_id}}: {{name}}</td>
-					<td>{{client}}</td>
-					<td>{{requesting}}</td>
-					<td>{{impacting}}</td>
-					<td>{{formatDate date}}</td>
+					<td class="record">{{enhancementId}}: {{name}}</td>
+					<td class="record">{{client}}</td>
+					<td class="record">{{requesting}}</td>
+					<td class="record">{{impacting}}</td>
+					<td class="record">{{formatDate date}}</td>
 					<td style="text-align: center"><input type="checkbox" id="required" checked="{{required}}" onClick="return false"></td>
 					<td style="text-align: center"><input type="checkbox" id="internal" checked="{{internal}}" onClick="return false"></td>
 					<td style="text-align: center"><input type="checkbox" id="like" checked="{{like}}"></td>
@@ -162,20 +163,20 @@
 <template name="internal">
 	<li class="checkbox cb-header"><input type="checkbox" class="toggle-internal checkbox" name="toggle-internal" /> Impact</li>
 	{{#if internal}}
-		<li class="checkbox cb-item"><input type="checkbox" checked="checked" class="internal" name="filter-internal" value="false" /> External </li>
-		<li class="checkbox cb-item"><input type="checkbox" checked="checked" class="internal" name="filter-internal" value="true" /> Internal </li>
+		<li class="checkbox cb-item"><input type="checkbox" checked="checked" class="internal" name="filter-internal" value="false" /> Client Available Enhancement </li>
+		<li class="checkbox cb-item"><input type="checkbox" checked="checked" class="internal" name="filter-internal" value="true" /> CSG Internal </li>
 	{{/if}}
 </template>
 
 <template name="requestings">
-	<li class="checkbox cb-header"><input type="checkbox" class="toggle-requesting checkbox" name="toggle-requesting" /> Requesting Product</li>
+	<li class="checkbox cb-header"><input type="checkbox" class="toggle-requesting checkbox" name="toggle-requesting" /> Core Product</li>
 	{{#each requesting}}
 		<li class="checkbox cb-item"><input type="checkbox" checked="checked" class="requesting" name="filter-requesting" value="{{this}}" /> {{this}} </li>
 	{{/each}}
 </template>
 
 <template name="impactings">
-	<li class="checkbox cb-header"><input type="checkbox" class="toggle-impacting checkbox" name="toggle-impacting" /> Impacting Product</li>
+	<li class="checkbox cb-header"><input type="checkbox" class="toggle-impacting checkbox" name="toggle-impacting" /> Impacted Product</li>
 	{{#each impacting}}
 		<li class="checkbox cb-item"><input type="checkbox" checked="checked" class="impacting" name="filter-impacting" value="{{this}}" /> {{this}} </li>
 	{{/each}}
